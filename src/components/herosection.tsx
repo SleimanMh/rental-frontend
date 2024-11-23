@@ -20,7 +20,8 @@ const HeroSection = () => {
                 style={{
                     position: "relative",
                     zIndex: 2,
-                    padding: "20px 40px", // Increased left padding for better spacing
+                    padding: "40px", // Increased left padding for better spacing
+                    marginLeft: "100px",
                     color: "black",
                     maxWidth: "700px",
                     backgroundColor: "rgba(255, 255, 255, 0.6)", // Semi-transparent background

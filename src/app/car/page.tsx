@@ -11,7 +11,6 @@ interface Car {
   brand: string;
   year: number;
   efficiency: number;
-  dailyRent: number;
   pricePerDay: number;
   rented: boolean;
 }
@@ -266,14 +265,15 @@ const CarPage = () => {
           left: 0,
           width: "100%",
           height: "100%",
-          backgroundColor: "rgba(128, 128, 128, 0.5)", // Light gray overlay
+          backgroundColor: "rgba(128, 128, 128, 0.2)", // Light gray overlay
           zIndex: 1,
         }}
       ></div>
 
       {/* Content */}
       <div style={{ position: "relative", zIndex: 2, padding: "20px" }}>
-        <h1 style={{ textAlign: "center", marginBottom: "20px", color: "white" }}>
+        <h1 style={{ textAlign: "center", marginBottom: "20px", color: "white" }}
+        className="text-4xl font-bold">
           Available Cars
         </h1>
         <div
@@ -291,7 +291,7 @@ const CarPage = () => {
                 borderRadius: "8px",
                 padding: "20px",
                 boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
-                backgroundColor: "white",
+                backgroundColor: "rgba(255,255,255,0.8)"
               }}
             >
               <h2>
@@ -304,10 +304,7 @@ const CarPage = () => {
                 <strong>Efficiency:</strong> {car.efficiency} km/l
               </p>
               <p>
-                <strong>Daily Rent:</strong> ${car.dailyRent}
-              </p>
-              <p>
-                <strong>Price Per Day:</strong> ${car.pricePerDay}
+                <strong>Price Per Day:</strong> {car.pricePerDay}
               </p>
               <p>
                 <strong>Status:</strong> {car.rented ? "Rented" : "Available"}
@@ -316,8 +313,8 @@ const CarPage = () => {
                 <button
                   onClick={() => handleRent(car.id)}
                   style={{
-                    backgroundColor: "#4CAF50",
-                    color: "white",
+                    backgroundColor: "rgba(180,180,180,0.8)",
+                    color: "black",
                     padding: "10px 20px",
                     border: "none",
                     borderRadius: "5px",

@@ -87,7 +87,7 @@ export default function RootLayout({
                 </Link>
               </li>
               <li>
-                <Link href="/dealers" className="text-xl font-bold bg-rgba(255, 255, 255, 0.9) px-6 py-3 rounded-lg">
+                <Link href="/dealer" className="text-xl font-bold bg-rgba(255, 255, 255, 0.9) px-6 py-3 rounded-lg">
                   Dealers
                 </Link>
               </li>

@@ -17,7 +17,11 @@ interface Dealer {
   dealerId: number;
   name: string;
   dealerContactNumber: string;
+  date_of_birth: string; // Assuming backend sends date as a string
+  email: string;
+  address: string;
 }
+
 
 const AdminPage = () => {
   const [cars, setCars] = useState<Car[]>([]);
@@ -160,6 +164,7 @@ const AdminPage = () => {
 
   // Add a new dealer
   const addDealer = async () => {
+    // Ask for dealer name
     const { value: name } = await Swal.fire({
       title: "Enter Dealer Name",
       input: "text",
@@ -169,6 +174,7 @@ const AdminPage = () => {
 
     if (!name) return;
 
+    // Ask for dealer contact number
     const { value: contactNumber } = await Swal.fire({
       title: "Enter Dealer Contact Number",
       input: "text",
@@ -178,12 +184,42 @@ const AdminPage = () => {
 
     if (!contactNumber) return;
 
+    // Ask for dealer date of birth
+    const { value: date_of_birth } = await Swal.fire({
+      title: "Enter Dealer Date of Birth",
+      input: "text",
+      inputPlaceholder: "YYYY-MM-DD",
+      showCancelButton: true,
+    });
+
+    if (!date_of_birth) return;
+
+    // Ask for dealer email
+    const { value: email } = await Swal.fire({
+      title: "Enter Dealer Email",
+      input: "email",
+      inputPlaceholder: "Email Address",
+      showCancelButton: true,
+    });
+
+    if (!email) return;
+
+    // Ask for dealer address
+    const { value: address } = await Swal.fire({
+      title: "Enter Dealer Address",
+      input: "text",
+      inputPlaceholder: "Address",
+      showCancelButton: true,
+    });
+
+    if (!address) return;
+
+    // Prepare the new dealer object
+    const newDealer = { name, dealerContactNumber: contactNumber, date_of_birth, email, address };
+
     try {
-      const newDealer = { name, dealerContactNumber: contactNumber };
-      const response = await axios.post(
-        "http://localhost:8080/dealer",
-        newDealer
-      );
+      // Send POST request to add dealer
+      const response = await axios.post("http://localhost:8080/dealer", newDealer);
 
       Swal.fire({
         icon: "success",
@@ -191,6 +227,7 @@ const AdminPage = () => {
         text: "Dealer added successfully.",
       });
 
+      // Update the dealers list with the newly added dealer
       setDealers((prevDealers) => [...prevDealers, response.data]);
     } catch (error) {
       console.error("Error adding dealer:", error);
@@ -201,6 +238,7 @@ const AdminPage = () => {
       });
     }
   };
+
   const deleteCar = async (carId: number) => {
     try {
       await axios.delete(`http://localhost:8080/car/${carId}`);
@@ -332,20 +370,20 @@ const AdminPage = () => {
                     Set Available
                   </button>
                 )}
-                  <button
-                    onClick={() => deleteCar(car.id)}
-                    style={{
-                      backgroundColor: "#FF0000",
-                      color: "white",
-                      padding: "5px 10px",
-                      border: "none",
-                      borderRadius: "5px",
-                      cursor: "pointer",
-                      marginRight: "10px",
-                    }}
-                  >
-                    Delete Car
-                  </button>
+                <button
+                  onClick={() => deleteCar(car.id)}
+                  style={{
+                    backgroundColor: "#FF0000",
+                    color: "white",
+                    padding: "5px 10px",
+                    border: "none",
+                    borderRadius: "5px",
+                    cursor: "pointer",
+                    marginRight: "10px",
+                  }}
+                >
+                  Delete Car
+                </button>
               </div>
             ))}
           </div>
@@ -388,6 +426,15 @@ const AdminPage = () => {
                 <h3>{dealer.name}</h3>
                 <p>
                   <strong>Contact Number:</strong> {dealer.dealerContactNumber}
+                </p>
+                <p>
+                  <strong>Date of Birth:</strong> {dealer.date_of_birth}
+                </p>
+                <p>
+                  <strong>Email:</strong> {dealer.email}
+                </p>
+                <p>
+                  <strong>Address:</strong> {dealer.address}
                 </p>
                 <div>
                   <button
